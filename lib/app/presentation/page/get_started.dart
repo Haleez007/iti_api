@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'login_screen.dart';
-import 'signup_screen.dart';
-
+import 'package:iti_api/features/auth/presentation/pages/login_screen.dart';
 class GetStarted extends StatefulWidget {
   const GetStarted({super.key});
 

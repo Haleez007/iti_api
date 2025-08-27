@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'cubit/add_to_cart/add_to_cart_cubit.dart';
-import 'cubit/get_product/product_cubit.dart';
-import 'splashscreen.dart';
+import 'features/cart/logic/cubit/add_to_cart_cubit.dart';
+import 'features/products/logic/cubit/product_cubit.dart';
+import 'features/wishlist/logic/cubit/wishlist_cubit.dart';
+import 'core/theme/app_theme.dart';
+import 'core/routing/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,15 +25,14 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(create: (context) => ProductCubit()),
             BlocProvider(create: (context) => AddToCartCubit()),
+            BlocProvider(create: (context) => WishlistCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'ITI App',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            home: const SplashScreen(),
+            title: 'Stylish',
+            theme: AppTheme.light,
+            onGenerateRoute: AppRouter.onGenerateRoute,
+            initialRoute: Routes.splash,
           ),
         );
       },

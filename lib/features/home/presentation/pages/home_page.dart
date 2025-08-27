@@ -2,10 +2,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:iti_api/product_page.dart';
-import 'package:iti_api/cart_page.dart';
- import 'package:iti_api/cubit/add_to_cart/add_to_cart_cubit.dart';
- import 'package:iti_api/cubit/add_to_cart/add_to_cart_state.dart';
+import 'package:iti_api/features/cart/logic/cubit/add_to_cart_cubit.dart';
+import 'package:iti_api/features/cart/logic/cubit/add_to_cart_state.dart';
+import 'package:iti_api/features/wishlist/logic/cubit/wishlist_cubit.dart';
+import 'package:iti_api/features/wishlist/logic/cubit/wishlist_state.dart';
+import 'package:iti_api/core/routing/routes.dart';
+import 'package:iti_api/app/presentation/page/get_started.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -78,21 +80,25 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(context); // close drawer
+                // If not already on home, navigate to home
+                Navigator.pushReplacementNamed(context, Routes.home);
               },
             ),
             ListTile(
               leading: const Icon(Icons.shopping_cart),
-              title: const Text('My Orders'),
+              title: const Text('Cart'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(context); // close drawer
+                Navigator.pushNamed(context, Routes.cart);
               },
             ),
             ListTile(
               leading: const Icon(Icons.favorite),
-              title: const Text('Favorites'),
+              title: const Text('Wishlist'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(context); // close drawer
+                Navigator.pushNamed(context, Routes.wishlist);
               },
             ),
             const Divider(),
@@ -100,7 +106,18 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Logout', style: TextStyle(color: Colors.red)),
               onTap: () {
-                Navigator.pop(context);
+                // Clear app session state (cart + wishlist) then navigate to GetStarted
+                final cartCubit = context.read<AddToCartCubit>();
+                final wishlistCubit = context.read<WishlistCubit>();
+                if (cartCubit is AddToCartCubit) {
+                  cartCubit.clearItemsFromCart();
+                }
+                wishlistCubit.clear();
+
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (_) => const GetStarted()),
+                  (route) => false,
+                );
               },
             ),
           ],
@@ -328,36 +345,41 @@ class _HomePageState extends State<HomePage> {
                           'Mens',
                           'Womens',
                         ];
-                        return Container(
-                          height: 60.h,
-                          width: 60.w,
-                          margin: EdgeInsets.symmetric(horizontal: 5.w),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                width: 50.w,
-                                height: 50.h,
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    images[index],
-                                    width: 50.w,
-                                    height: 50.h,
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.products);
+                          },
+                          child: Container(
+                            height: 60.h,
+                            width: 60.w,
+                            margin: EdgeInsets.symmetric(horizontal: 5.w),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 50.w,
+                                  height: 50.h,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      images[index],
+                                      width: 50.w,
+                                      height: 50.h,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(width: 70.w,),
-                              Text(
-                                labels[index],
-                                style: TextStyle(
-                                  color: Color(0xFF21003D),
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500,
-                                  overflow: TextOverflow.ellipsis,
+                                SizedBox(width: 70.w,),
+                                Text(
+                                  labels[index],
+                                  style: TextStyle(
+                                    color: Color(0xFF21003D),
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  maxLines: 1,
                                 ),
-                                maxLines: 1,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -428,6 +450,7 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: 5.h),
                           TextButton(
                             onPressed: () {
+                              Navigator.pushNamed(context, Routes.products);
                             },
                             style: TextButton.styleFrom(
                               backgroundColor: Colors.transparent,
@@ -469,7 +492,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 width: 343.w,
                 height: 70.h,
-                margin: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                 decoration: BoxDecoration(
                   color: Color(0xFF4392F9),
@@ -514,10 +537,7 @@ class _HomePageState extends State<HomePage> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ProductPage()),
-                        );
+                        Navigator.pushNamed(context, Routes.products);
                       },
                       child: Container(
                         width: 89.w,
@@ -951,10 +971,7 @@ class _HomePageState extends State<HomePage> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ProductPage()),
-                        );
+                        Navigator.pushNamed(context, Routes.products);
                       },
                       child: Container(
                         width: 89.w,
@@ -1165,9 +1182,44 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.favorite_border, size: 24.sp),
-                      onPressed: () {},
+                    BlocBuilder<WishlistCubit, WishlistState>(
+                      builder: (context, state) {
+                        int count = 0;
+                        if (state is WishlistLoaded) count = state.items.length;
+                        return Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.favorite_border, size: 24.sp),
+                              onPressed: () {
+                                Navigator.pushNamed(context, Routes.wishlist);
+                              },
+                            ),
+                            if (count > 0)
+                              Positioned(
+                                right: 6,
+                                top: 6,
+                                child: Container(
+                                  width: 16,
+                                  height: 16,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '$count',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      },
                     ),
                     Text('Wishlist', style: TextStyle(fontSize: 10.sp)),
                   ],
@@ -1207,10 +1259,7 @@ class _HomePageState extends State<HomePage> {
             top: 1.h,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartPage()),
-                );
+                Navigator.pushNamed(context, Routes.cart);
               },
               child: Container(
                 width: 60.w,

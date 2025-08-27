@@ -2,8 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:iti_api/onboarding_model.dart';
-
+import 'package:iti_api/app/presentation/page/onboarding_model.dart';
 import 'get_started.dart';
 
 class PostPage extends StatefulWidget {

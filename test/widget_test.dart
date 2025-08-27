@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:iti_api/main.dart';
-import 'package:iti_api/splashscreen.dart';
+import 'package:iti_api/features/splash/presentation/pages/splash_screen.dart';
 
 void main() {
   testWidgets('Splash screen shows logo', (WidgetTester tester) async {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'login_screen.dart';
-import 'common/textfield_widget.dart';
-import 'get_started.dart';
-
+import 'package:iti_api/common/widgets/textfield_widget.dart';
+import 'package:iti_api/app/presentation/page/get_started.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iti_api/cubit/add_to_cart/add_to_cart_cubit.dart';
-import 'package:iti_api/cubit/add_to_cart/add_to_cart_state.dart';
-import 'package:iti_api/payment_page.dart';
+import 'package:iti_api/features/cart/logic/cubit/add_to_cart_cubit.dart';
+import 'package:iti_api/features/cart/logic/cubit/add_to_cart_state.dart';
+import 'package:iti_api/core/theme/app_colors.dart';
+import 'package:iti_api/core/routing/routes.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -11,9 +12,12 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text('Cart'),
         centerTitle: true,
+        backgroundColor: AppColors.surface,
+        foregroundColor: AppColors.textPrimary,
       ),
       body: BlocBuilder<AddToCartCubit, AddToCartState>(
         builder: (context, state) {
@@ -40,9 +44,9 @@ class CartPage extends StatelessWidget {
                     onPressed: () {
                       context.read<AddToCartCubit>().clearItemsFromCart();
                     },
-                    child: const Text(
+                    child: Text(
                       'Clear All',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: AppColors.textPrimary),
                     ),
                   ),
                 ),
@@ -59,7 +63,7 @@ class CartPage extends StatelessWidget {
                       key: ValueKey('${item['id']}_$index'),
                       direction: DismissDirection.endToStart,
                       background: Container(
-                        color: Colors.red,
+                        color: AppColors.primary,
                         alignment: Alignment.centerRight,
                         padding: const EdgeInsets.only(right: 20),
                         child: const Icon(Icons.delete, color: Colors.white),
@@ -67,9 +71,9 @@ class CartPage extends StatelessWidget {
                       onDismissed: (direction) {
                         context.read<AddToCartCubit>().removeItemFromCart(item);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Item removed from cart'),
-                            backgroundColor: Colors.red,
+                          SnackBar(
+                            content: const Text('Item removed from cart'),
+                            backgroundColor: AppColors.primary,
                           ),
                         );
                       },
@@ -89,18 +93,20 @@ class CartPage extends StatelessWidget {
                               : const Icon(Icons.image, size: 40),
                           title: Text(
                             item['title'] ?? 'No Title',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                           ),
                           subtitle: Text(
                             item['description'] ?? item['subtitle'] ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
+                            style: TextStyle(color: AppColors.textSecondary),
                           ),
                           trailing: Text(
                             '\$${item['price']?.toStringAsFixed(2) ?? '0.00'}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
+                              color: AppColors.primary,
                             ),
                           ),
                         ),
@@ -114,57 +120,51 @@ class CartPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: AppColors.surface,
                   border: Border(
-                    top: BorderSide(color: Colors.grey[300]!),
+                    top: BorderSide(color: AppColors.divider),
                   ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Total:',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     Text(
                       '\$${_calculateTotal(cartItems).toStringAsFixed(2)}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                        color: AppColors.primary,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              // ... (rest of your code above)
-
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                color: Colors.white,
+                color: AppColors.surface,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Show snackbar first
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Proceeding to checkout...'),
-                        backgroundColor: Colors.green,
+                        backgroundColor: AppColors.primary,
                       ),
                     );
 
-                    // Then navigate to payment page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const PaymentPage()),
-                    );
+                    Navigator.pushNamed(context, Routes.payment);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
+                    backgroundColor: AppColors.primary,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),

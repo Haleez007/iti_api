@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:iti_api/product_model.dart';
-import 'cubit/add_to_cart/add_to_cart_cubit.dart';
+import 'package:iti_api/shared/models/product_model.dart';
+import 'package:iti_api/features/cart/logic/cubit/add_to_cart_cubit.dart';
+import 'package:iti_api/core/theme/app_colors.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   const ProductDetailsPage({
@@ -32,7 +33,8 @@ class ProductDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Product Details'),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.surface,
+        foregroundColor: AppColors.textPrimary,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
@@ -65,10 +67,10 @@ class ProductDetailsPage extends StatelessWidget {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      '\$${price ??0}',
+                      '\$' + price.toString(),
                       style: TextStyle(
                         fontSize: 20.sp,
-                        color: Colors.green,
+                        color: AppColors.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -109,7 +111,7 @@ class ProductDetailsPage extends StatelessWidget {
                       msg: 'Item added to cart',
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
-                      backgroundColor: Colors.green,
+                      backgroundColor: AppColors.primary,
                       textColor: Colors.white,
                       fontSize: 16.0,
                     );
@@ -117,7 +119,7 @@ class ProductDetailsPage extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 16.h),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: AppColors.primary,
                   ),
                   child: const Text(
                     'Add to Cart',

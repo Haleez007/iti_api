@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iti_api/common/textfield_widget.dart';
+import 'package:iti_api/common/widgets/textfield_widget.dart';
 import 'signup_screen.dart';
-import 'home_page.dart'; // Add this line
+import 'package:iti_api/core/routing/routes.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -85,10 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 56.h,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const HomePage()),
-                      );
+                      Navigator.pushReplacementNamed(context, Routes.home);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
