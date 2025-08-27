@@ -1,8 +1,11 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iti_api/onboarding_model.dart';
 
-import 'cubit/post_cubit.dart';
-import 'cubit/post_state.dart';
+import 'get_started.dart';
+
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
 
@@ -11,54 +14,150 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
+  int currentPage = 0;
+  final PageController controller = PageController();
 
   @override
-  void initState() {
-    context.read<PostCubit>().updatePost();
-    super.initState();
-
-  }
   Widget build(BuildContext context) {
-  return BlocBuilder<PostCubit,PostState>(
-    builder: (context,state) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('product',
-        ),
-        centerTitle: true,
-      ),
-      body :Padding(padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-      child: Column(
-        children: [
-          if(state is LoadingPostState)...[
-          SizedBox(height: 300,),
-          Center(child: CircularProgressIndicator()),],
-          if(state is SuccessPostState)
-            Expanded(
-              child: ListView.builder(
-                itemCount: state.posts.length,
-                padding: EdgeInsets.only(top: 22),
-                itemBuilder: (context,index) {
-                  return ListTile(
-                    leading: Image.network('${state.posts[index]['thumbnail']}',
-                    height: 85,
-                    width: 90,
-                      fit: BoxFit.contain,
+      body: SafeArea(
+        child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 22.h),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '${currentPage + 1}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        ' / ${onboardingTitles.length}',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => const GetStarted ()),
+                      );
+                    },
+                    child: Text(
+                      "Skip",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    title: Text('${state.posts[index]['title']}'),
-                    subtitle: Text('${state.posts[index]['tags']}'),
-
-                  );
-                },
-
-    ),
-            ),
-          if(state is ErrorPostState)
-            Center(child: Text(state.message)),
-        ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 100.h),
+              Expanded(
+                child: PageView.builder(
+                  onPageChanged: (value) {
+                    setState(() {
+                      currentPage = value;
+                    });
+                  },
+                  controller: controller,
+                  itemCount: onboardingTitles.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 300.h,
+                          width: 300.w,
+                          child: SvgPicture.asset(onboardingImages[index]),
+                        ),
+                        SizedBox(height: 15.h),
+                        Text(
+                          onboardingTitles[index],
+                          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w800),
+                        ),
+                        SizedBox(height: 10.h),
+                        Text(
+                          onboardingSubTitles[index],
+                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  currentPage == 0
+                      ? SizedBox()
+                      : InkWell(
+                          onTap: () {
+                            controller.previousPage(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                            );
+                          },
+                          child: Text(
+                            "Prev",
+                            style: TextStyle(color: Colors.grey, fontSize: 18.sp, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                  DotsIndicator(
+                    dotsCount: onboardingTitles.length,
+                    position: currentPage.toDouble(),
+                    decorator: DotsDecorator(
+                      activeShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.r),
+                      ),
+                      activeColor: Colors.black,
+                      color: Colors.grey,
+                      size: Size(10, 10),
+                      activeSize: Size(40, 10),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (currentPage == 2) {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => const GetStarted()),
+                        );
+                      } else {
+                        controller.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
+                      }
+                    },
+                    child: Text(
+                      currentPage == 2 ? "GetStarted" : 'Next',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
-    ),
-    );
+      ));
   }
-    );
-  }}
+}

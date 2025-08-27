@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -285,11 +284,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: 65.h,
+                height: 80.h,
                 width: double.infinity,
                 child: Container(
                     margin: EdgeInsets.only( left: 10.h ),
-                  // padding: EdgeInsets.only(top: 5.h,bottom: 0),
+
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -306,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   child: SizedBox(
-                    height: 70.h,
+                    height: 10.h,
                     width: double.infinity,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -329,6 +328,7 @@ class _HomePageState extends State<HomePage> {
                           'Womens',
                         ];
                         return Container(
+                          height: 60.h,
                           width: 60.w,
                           margin: EdgeInsets.symmetric(horizontal: 5.w),
                           child: Column(
@@ -365,13 +365,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              // Add this after the SizedBox containing the categories
-              // Replace the existing Padding widget with this Stack widget
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 child: Stack(
                   children: [
-                    // Background Image
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12.r),
                       child: Column(
@@ -381,7 +379,7 @@ class _HomePageState extends State<HomePage> {
                             width: double.infinity,
                             fit: BoxFit.cover,
                           ),
-                          SizedBox(height: 16.h),
+                          SizedBox(height: 15.h),
                           DotsIndicator(
                             dotsCount: 3,
                             position: _currentPageIndex.toDouble()==1?1:1,
@@ -398,7 +396,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
 
-                    // Text and Button
+
                     Positioned(
                       left: 20.w,
                       top: 0,
@@ -444,92 +442,63 @@ class _HomePageState extends State<HomePage> {
                               ),
                               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                             ),
-                            child: Column(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Shop Now',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(width: 4.w),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                      size: 14.sp,
-                                    ),
-                                  ],
+                                Text(
+                                  'Shop Now',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                SizedBox(height: 4.h),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: List.generate(3, (index) => Container(
-                                    width: 4.w,
-                                    height: 4.w,
-                                    margin: EdgeInsets.symmetric(horizontal: 2.w),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  )),
+                                SizedBox(width: 4.w),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                  size: 14.sp,
                                 ),
                               ],
                             ),
                           ),
                         ],
                       ),
-
                     ),
                   ],
                 ),
-
               ),
-
               Container(
                 width: 343.w,
-                height: 84.h,
-                margin: EdgeInsets.only(top: 20.h, bottom: 20.h, left: 16.w, right: 16.w),
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                height: 70.h,
+                margin: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                 decoration: BoxDecoration(
                   color: Color(0xFF4392F9),
                   borderRadius: BorderRadius.circular(8.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'Deal of the Day',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-
+                        Text(
+                          'Deal of the Day',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
                         Row(
                           children: [
                             Icon(
                               Icons.access_alarm,
                               color: Colors.white,
-                              size: 16.sp,
+                              size: 14.sp,
                             ),
                             SizedBox(width: 4.w),
                             Text(
@@ -537,39 +506,58 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
                         ),
-                        
-
-                        GestureDetector(
-                          onTap: () {
-
-                          },
-                          child: Text(
-                            'Shop Now',
+                      ],
+                    ),
+                    Spacer(),
+                    Container(
+                      width: 89.w,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(4.r),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1.w,
+                        ),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'View All',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 4.w),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                            size: 14.sp,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
 
-              // Product List
+              SizedBox(height: 20.h),
               Container(
-                height: 190.h,
-                margin: EdgeInsets.only(left: 16.w, top: 0, right: 16.w, bottom: 16.h),
+                height: 245.h,
+                margin: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 2,
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     // Product data
                     final products = [
@@ -585,7 +573,7 @@ class _HomePageState extends State<HomePage> {
                         'image': 'assets/images/sh..png',
                         'title': 'HRX by Hrithik Roshan',
                         'description': 'Neque porro quisquam est qui dolorem ipsum quia',
-                        'price': '₹999',
+                        'price': '₹2,499',
                         'originalPrice': '₹4,999',
                         'ratingCount': '721,789',
                       },
@@ -610,11 +598,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,  // Added this line
                         children: [
-
+                          // Product Image
                           Container(
                             width: double.infinity,
-                            height: 100.h,
+                            height: 120.h,  // Increased image height
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(12.r),
@@ -626,11 +615,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
+                          // Product Details
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                            padding: EdgeInsets.all(8.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Title
                                 Text(
                                   product['title']!,
                                   style: TextStyle(
@@ -638,21 +629,26 @@ class _HomePageState extends State<HomePage> {
                                     fontWeight: FontWeight.bold,
                                     height: 1.2,
                                   ),
-                                  maxLines: 2,
+                                  maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: 2.h),
-                                Text(
-                                  product['description']!,
-                                  style: TextStyle(
-                                    fontSize: 9.sp,
-                                    color: Colors.grey[600],
-                                    height: 1.2,
+                                // Description
+                                SizedBox(  // Added fixed height container
+                                  height: 30.h,
+                                  child: Text(
+                                    product['description']!,
+                                    style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.grey[600],
+                                      height: 1.2,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                SizedBox(height: 2.h),
+                                SizedBox(height: 4.h),
+                                // Price and Discount
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -672,16 +668,22 @@ class _HomePageState extends State<HomePage> {
                                             fontSize: 10.sp,
                                             color: Colors.grey,
                                             decoration: TextDecoration.lineThrough,
-                                            decorationColor: Colors.grey,
                                           ),
                                         ),
                                         SizedBox(width: 4.w),
-                                        Text(
-                                          '50% Off',
-                                          style: TextStyle(
-                                            fontSize: 10.sp,
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.bold,
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+                                          decoration: BoxDecoration(
+                                            color: Colors.red.shade50,
+                                            borderRadius: BorderRadius.circular(4.r),
+                                          ),
+                                          child: Text(
+                                            '50% Off',
+                                            style: TextStyle(
+                                              fontSize: 8.sp,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -689,112 +691,40 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 SizedBox(height: 4.h),
+
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
-                                      children: [
-                                        ...List.generate(4, (index) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                          size: 12.sp,
-                                        )),
-                                        Icon(
-                                          Icons.star_border,
-                                          color: Colors.grey[400],
-                                          size: 12.sp,
-                                        ),
-                                        SizedBox(width: 2.w),
-                                        Text(
-                                          '(${product['ratingCount']})',
-                                          style: TextStyle(
-                                            fontSize: 8.sp,
-                                            color: Colors.grey[600],
-                                          ),
-                                        ),
-                                      ],
+                                      children: List.generate(5, (starIndex) => Icon(
+                                        starIndex < 4 ? Icons.star : Icons.star_border,
+                                        color: starIndex < 4 ? Colors.amber : Colors.grey[400],
+                                        size: 12.sp,
+                                      )),
+                                    ),
+                                    SizedBox(width: 2.w),
+                                    Text(
+                                      '(${product['ratingCount']})',
+                                      style: TextStyle(
+                                        fontSize: 8.sp,
+                                        color: Colors.grey[600],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
+
                           ),
                         ],
                       ),
                     );
                   },
                 ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 84.h,
-                margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    // Image on the left
-                    Image.asset(
-                      'assets/images/Rectangle 56 (1).png',
-                      width: 75.w,
-                      height: 60.h,
-                      fit: BoxFit.contain,
-                    ),
-                    SizedBox(width: 16.w),
-                    // Text content
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Special Offers 😱',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(height: 4.h),
-                          Text(
-                            'We make sure you get the offer you need at best prices',
-                            style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Colors.grey[600],
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-                child: Image.asset(
-                  'assets/images/mac.png',
-                  width: double.infinity,
-                  fit: BoxFit.contain,
-                ),
-              ),
-          ]),
+              ),],
           ),
-        ),
 
+        ),
+      ),
     );
   }
 
