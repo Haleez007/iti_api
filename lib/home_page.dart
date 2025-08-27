@@ -99,7 +99,6 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header with menu, logo, and profile
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 child: Row(
@@ -691,7 +690,6 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 SizedBox(height: 4.h),
-
                                 Row(
                                   children: [
                                     Row(
@@ -720,9 +718,350 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-              ),],
-          ),
+              ),
+              // Special Offers Container
+              Container(
+                width: 343.w,
+                height: 84.h,
+                margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+                padding: EdgeInsets.all(12.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
 
+                    Image.asset(
+                      'assets/images/Rectangle 56 (1).png',
+                      width: 60.w,
+                      height: 60.h,
+                      fit: BoxFit.contain,
+                    ),
+                    SizedBox(width: 12.w),
+                    // Text content
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Special Offers 😱',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: 4.h),
+                          Text(
+                            'We make sure you get the offer you need at best prices',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.grey[600],
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Stack(
+                children: [
+                  Positioned(
+                    left: 8.w,
+                    top: 8.h,
+                    child: Image.asset(
+                      'assets/images/Group 33732.png',
+                      width: 77.71.w,
+                      height: 156.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Container(
+                    width: 331.w,
+                    height: 155.h,
+                    margin: EdgeInsets.only(top: 8.h, left: 8.w, bottom: 20.h),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(4.r),
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/Rectangle 53.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 172.w,
+                    top: 51.h,
+                    child: Container(
+                      width: 162.w,
+                      height: 39.h,
+                      alignment: Alignment.center,
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            color: Color(0xFF232327),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'Flat and Heels\n',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF232327),
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Stand a chance to get rewarded',
+                              style: TextStyle(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0xFF232327),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 24.w,
+                    top: 40.h,
+                    child: Image.asset(
+                      'assets/images/Rectangle 55.png',
+                      width: 144.w,
+                      height: 108.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Positioned(
+                    left: 8.w,
+                    top: 8.h,
+                    child: Container(
+                      width: 11.w,
+                      height: 171.h,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          colors: [
+                            Color(0xFFEFAD18), // 25% color
+                            Color(0xFFF8D7B4), // 100% color
+                          ],
+                          stops: [0.25, 1.0],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 235.w,
+                    top: 92.h,
+                    child: Container(
+                      width: 92.w,
+                      height: 24.h,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 4.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF83758),
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Visit now',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 4.w),
+                          Icon(
+                            Icons.arrow_forward,
+                            size: 14.sp,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                width: 343.w,
+                height: 70.h,
+                margin: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  color: Color(0xFFFD6E87),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Trending Products ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.date_range,
+                              color: Colors.white,
+                              size: 14.sp,
+                            ),
+                            SizedBox(width: 4.w),
+                            Text(
+                              'Last Date 29/02/22',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    Container(
+                      width: 89.w,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(4.r),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1.w,
+                        ),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'View All',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: 4.w),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                            size: 14.sp,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // New Frame
+              AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+                width: 340.w,
+                height: 186.h,
+                margin: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w, bottom: 16.h),
+                child: GestureDetector(
+                  onTap: () {
+                    // Navigation logic can be added here
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    // Add your frame content here
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.generate(3, (index) => Container(
+                        width: 142.w,
+                        height: 186.h,
+                        margin: EdgeInsets.symmetric(horizontal: 4.w),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Image at the top
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.r),
+                                topRight: Radius.circular(4.r),
+                              ),
+                              child: Image.asset(
+                                'assets/images/shhhh.png',
+                                width: 142.w,
+                                height: 100.h,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            // Text below the image
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  'Item ${index + 1}',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
