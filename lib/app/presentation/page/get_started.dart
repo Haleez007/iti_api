@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iti_api/core/routing/routes.dart';
 import 'package:iti_api/features/auth/presentation/pages/login_screen.dart';
+
 class GetStarted extends StatefulWidget {
   const GetStarted({super.key});
 
@@ -66,10 +68,7 @@ class _GetStartedState extends State<GetStarted> {
                     height: 56.h,
                     child: MaterialButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginScreen()),
-                        );
+                        Navigator.pushReplacementNamed(context, Routes.login);
                       },
                       color: Colors.red,
                       shape: RoundedRectangleBorder(

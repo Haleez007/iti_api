@@ -1,6 +1,6 @@
 <div align="center">
 
-# ITI E‑Commerce App
+# 🛍️ ITI E‑Commerce App
 
 Modern Flutter shopping app with clean architecture (feature‑first), named routing, Bloc/Cubit state management, unified theming, and a realistic checkout flow.
 
@@ -8,18 +8,18 @@ Modern Flutter shopping app with clean architecture (feature‑first), named rou
 
 ---
 
-## Highlights
+## ✨ Highlights
 
-- __Feature‑first architecture__: clear separation by features under `lib/features/` and shared layers under `lib/core/` and `lib/shared/`.
-- __Named routing__: centralized in `lib/core/routing/routes.dart` with an `AppRouter`.
-- __State management__: simple, predictable Cubits (`AddToCartCubit`, `WishlistCubit`, `ProductCubit`).
-- __Unified theme__: color scheme via `lib/core/theme/app_colors.dart` and `app_theme.dart`.
-- __Wishlist + Cart badges__: reusable `BadgeIconButton`.
-- __Realistic Payment__: Luhn validation, brand detection (VISA/MC/AMEX/DISC), expiry/CVV checks, order summary, processing state, success screen.
+- 🔧 __Feature‑first architecture__: clear separation by features under `lib/features/` and shared layers under `lib/core/` and `lib/shared/`.
+- 🧭 __Named routing__: centralized in `lib/core/routing/routes.dart` with an `AppRouter`.
+- 📦 __State management__: simple, predictable Cubits (`AddToCartCubit`, `WishlistCubit`, `ProductCubit`).
+- 🎨 __Unified theme__: color scheme via `lib/core/theme/app_colors.dart` and `app_theme.dart`.
+- 🔔 __Wishlist + Cart badges__: reusable `BadgeIconButton`.
+- 💳 __Realistic Payment__: Luhn validation, brand detection (VISA/MC/AMEX/DISC), expiry/CVV checks, order summary, processing state, success screen.
 
 ---
 
-## Project Structure
+## 🗺️ Project Structure
 
 ```
 lib/
@@ -57,7 +57,7 @@ main.dart
 
 ---
 
-## Routes
+## 🛣️ Routes
 
 Defined in `lib/core/routing/routes.dart`:
 
@@ -72,7 +72,7 @@ Defined in `lib/core/routing/routes.dart`:
 
 ---
 
-## State Management
+## 🧠 State Management
 
 - __Products__: `ProductCubit` fetches products from DummyJSON.
 - __Cart__: `AddToCartCubit` maintains `CartState` with add/remove/clear and total.
@@ -82,7 +82,7 @@ All provided high‑level in `main.dart` via `MultiBlocProvider`.
 
 ---
 
-## Payment Flow (Realistic UX)
+## 💳 Payment Flow (Realistic UX)
 
 - Card number formatting (4‑digit grouping) and brand detection (VISA/MC/AMEX/DISC).
 - Luhn validation for card numbers.
@@ -97,14 +97,14 @@ Files:
 
 ---
 
-## Tech Stack
+## 🧩 Tech Stack
 
 - Flutter, Dart
 - flutter_bloc, http, flutter_screenutil, flutter_svg, dots_indicator
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -122,41 +122,21 @@ flutter run
 
 ---
 
-## Screenshots
+## 🖼️ Screenshots
 
-Add your screenshots to `docs/screenshots/` and they will render below automatically.
+Below are real app screenshots from the project assets.
 
-```
-docs/
-  screenshots/
-    01_splash.png
-    02_onboarding.png
-    03_home.png
-    04_products.png
-    05_details.png
-    06_cart.png
-    07_wishlist.png
-    08_payment.png
-    09_payment_success.png
-```
+|  |  |  |  |
+|---|---|---|---|
+| ![1](assets/images/Screenshot_20250913_143648.png) | ![2](assets/images/Screenshot_20250913_143354.png) | ![3](assets/images/Screenshot_20250913_143338.png) | ![4](assets/images/Screenshot_20250913_143331.png) |
 
-| Splash | Onboarding | Home |
-|---|---|---|
-| ![Splash](docs/screenshots/01_splash.png) | ![Onboarding](docs/screenshots/02_onboarding.png) | ![Home](docs/screenshots/03_home.png) |
-
-| Products | Details | Cart |
-|---|---|---|
-| ![Products](docs/screenshots/04_products.png) | ![Details](docs/screenshots/05_details.png) | ![Cart](docs/screenshots/06_cart.png) |
-
-| Wishlist | Payment | Success |
-|---|---|---|
-| ![Wishlist](docs/screenshots/07_wishlist.png) | ![Payment](docs/screenshots/08_payment.png) | ![Success](docs/screenshots/09_payment_success.png) |
-
-> If you prefer, you can keep screenshots under `assets/screenshots/` and update the paths above accordingly.
+|  |  |  |  |
+|---|---|---|---|
+| ![5](assets/images/Screenshot_20250913_143308.png) | ![6](assets/images/Screenshot_20250913_143238.png) | ![7](assets/images/Screenshot_20250913_143101.png) | ![8](assets/images/Screenshot_20250913_142844.png) |
 
 ---
 
-## Notes & Next Steps
+## 🔧 Notes & Next Steps
 
 - Replace DummyJSON with your API/repository layer.
 - Persist cart and wishlist (Hive/SharedPreferences) if you need offline.
@@ -164,6 +144,6 @@ docs/
 
 ---
 
-## Authors
+## 👨‍💻 Authors
 
-Made with by Abdelhalim Ramadan
+Made with ❤️ by Abdelhalim Ramadan
