@@ -18,55 +18,57 @@ class _PostPageState extends State<PostPage> {
   final PageController controller = PageController();
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 22.h),
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: SafeArea(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        '${currentPage + 1}',
+              // Header with page number and skip button
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 22.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '${currentPage + 1}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          ' / ${onboardingTitles.length}',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => const GetStarted()),
+                        );
+                      },
+                      child: Text(
+                        "Skip",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Text(
-                        ' / ${onboardingTitles.length}',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => const GetStarted ()),
-                      );
-                    },
-                    child: Text(
-                      "Skip",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              SizedBox(height: 100.h),
+
+              // PageView content
               Expanded(
                 child: PageView.builder(
                   onPageChanged: (value) {
@@ -77,87 +79,116 @@ class _PostPageState extends State<PostPage> {
                   controller: controller,
                   itemCount: onboardingTitles.length,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: 300.h,
-                          width: 300.w,
-                          child: SvgPicture.asset(onboardingImages[index]),
-                        ),
-                        SizedBox(height: 15.h),
-                        Text(
-                          onboardingTitles[index],
-                          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w800),
-                        ),
-                        SizedBox(height: 10.h),
-                        Text(
-                          onboardingSubTitles[index],
-                          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.grey),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 40.h),
+                          SizedBox(
+                            height: 300.h,
+                            width: 300.w,
+                            child: SvgPicture.asset(onboardingImages[index]),
+                          ),
+                          SizedBox(height: 15.h),
+                          Text(
+                            onboardingTitles[index],
+                            style: TextStyle(
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 10.h),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Text(
+                              onboardingSubTitles[index],
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  currentPage == 0
-                      ? SizedBox()
-                      : InkWell(
-                          onTap: () {
-                            controller.previousPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeIn,
-                            );
-                          },
-                          child: Text(
-                            "Prev",
-                            style: TextStyle(color: Colors.grey, fontSize: 18.sp, fontWeight: FontWeight.w500),
+
+              // Bottom navigation
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Previous Button
+                    if (currentPage > 0)
+                      TextButton(
+                        onPressed: () {
+                          controller.previousPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: Text(
+                          "Prev",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16.sp,
                           ),
                         ),
-                  DotsIndicator(
-                    dotsCount: onboardingTitles.length,
-                    position: currentPage.toDouble(),
-                    decorator: DotsDecorator(
-                      activeShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      activeColor: Colors.black,
-                      color: Colors.grey,
-                      size: Size(10, 10),
-                      activeSize: Size(40, 10),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (currentPage == 2) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (_) => const GetStarted()),
-                        );
-                      } else {
-                        controller.nextPage(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      }
-                    },
-                    child: Text(
-                      currentPage == 2 ? "GetStarted" : 'Next',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
+                      )
+                    else
+                      SizedBox(width: 80.w),
+
+                    // Dots Indicator
+                    DotsIndicator(
+                      dotsCount: onboardingTitles.length,
+                      position: currentPage.toDouble(),
+                      decorator: DotsDecorator(
+                        activeColor: Colors.black,
+                        color: Colors.grey,
+                        size: Size(10, 10),
+                        activeSize: Size(40, 10),
+                        activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+
+                    // Next/Get Started Button
+                    TextButton(
+                      onPressed: () {
+                        if (currentPage == onboardingTitles.length - 1) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => const GetStarted()),
+                          );
+                        } else {
+                          controller.nextPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        }
+                      },
+                      child: Text(
+                        currentPage == onboardingTitles.length - 1
+                            ? "Get Started"
+                            : "Next",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
-      ),
-      ));
-  }
+      );
+    }
 }

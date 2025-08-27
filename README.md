@@ -1,16 +1,30 @@
-# iti_api
+# ITI E-Commerce App
 
-A new Flutter project.
+A Flutter-based e-commerce application with product listing, cart functionality, and secure payment processing.
+
+## Features
+
+- 🛍️ Browse products with categories
+- 🛒 Add/remove items from cart
+- 💳 Secure payment processing
+- 📱 Responsive design for all screen sizes
+- 🌐 Multi-language support (Arabic/English)
+
+## Screenshots
+
+[Add screenshots here]
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK (latest stable version)
+- Android Studio / Xcode (for emulator/simulator)
+- VS Code or Android Studio (with Flutter plugins)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository:
+   ```bash
+   git clone [your-repository-url]
+   cd iti_api

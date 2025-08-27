@@ -1,6 +1,11 @@
  import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:iti_api/product_page.dart';
+import 'package:iti_api/cart_page.dart';
+ import 'package:iti_api/cubit/add_to_cart/add_to_cart_cubit.dart';
+ import 'package:iti_api/cubit/add_to_cart/add_to_cart_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,13 +32,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<AddToCartCubit, AddToCartState>(
+        builder: (context, cartState) {
+          int itemCount = 0;
+          if (cartState is CartState) {
+            itemCount = cartState.cartItems.length;
+          }
     return Scaffold(
       backgroundColor: const Color(0xFFFDFDFD),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -104,7 +115,6 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Menu Button
                     Builder(
                       builder: (context) => IconButton(
                         icon: Column(
@@ -122,16 +132,12 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () => Scaffold.of(context).openDrawer(),
                       ),
                     ),
-
-                    // Logo
                     Image.asset(
                       'assets/images/logoipsum-255 1.png',
                       height: 30.h,
                       width: 100.w,
                       fit: BoxFit.contain,
                     ),
-
-                    // Profile Picture
                     CircleAvatar(
                       radius: 20.r,
                       backgroundImage: const AssetImage('assets/images/dd.png'),
@@ -139,8 +145,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-
-              // Search Box
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 child: Container(
@@ -243,7 +247,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
@@ -286,8 +289,7 @@ class _HomePageState extends State<HomePage> {
                 height: 80.h,
                 width: double.infinity,
                 child: Container(
-                    margin: EdgeInsets.only( left: 10.h ),
-
+                  margin: EdgeInsets.only(left: 10.h),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -341,7 +343,6 @@ class _HomePageState extends State<HomePage> {
                                     images[index],
                                     width: 50.w,
                                     height: 50.h,
-
                                   ),
                                 ),
                               ),
@@ -364,7 +365,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                 child: Stack(
@@ -394,8 +394,6 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-
-
                     Positioned(
                       left: 20.w,
                       top: 0,
@@ -409,10 +407,11 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFFFFFFF),                            ),
+                              color: Color(0xFFFFFFFF),
+                            ),
                           ),
                           Text(
-                            'Now in (product)',
+                            'Now in (get_product)',
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
@@ -513,42 +512,49 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Spacer(),
-                    Container(
-                      width: 89.w,
-                      height: 28.h,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(4.r),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.w,
-                        ),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'View All',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(width: 4.w),
-                          Icon(
-                            Icons.arrow_forward,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ProductPage()),
+                        );
+                      },
+                      child: Container(
+                        width: 89.w,
+                        height: 28.h,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(
                             color: Colors.white,
-                            size: 14.sp,
+                            width: 1.w,
                           ),
-                        ],
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'View All',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(width: 4.w),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 14.sp,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-
               SizedBox(height: 20.h),
               Container(
                 height: 245.h,
@@ -558,7 +564,6 @@ class _HomePageState extends State<HomePage> {
                   itemCount: 2,
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
-                    // Product data
                     final products = [
                       {
                         'image': 'assets/images/Mask Group.png',
@@ -577,9 +582,7 @@ class _HomePageState extends State<HomePage> {
                         'ratingCount': '721,789',
                       },
                     ];
-
                     final product = products[index];
-
                     return Container(
                       width: 150.w,
                       margin: EdgeInsets.only(right: 12.w),
@@ -597,12 +600,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,  // Added this line
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          // Product Image
                           Container(
                             width: double.infinity,
-                            height: 120.h,  // Increased image height
+                            height: 120.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(12.r),
@@ -614,13 +616,11 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          // Product Details
                           Padding(
                             padding: EdgeInsets.all(8.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Title
                                 Text(
                                   product['title']!,
                                   style: TextStyle(
@@ -632,8 +632,7 @@ class _HomePageState extends State<HomePage> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(height: 2.h),
-                                // Description
-                                SizedBox(  // Added fixed height container
+                                SizedBox(
                                   height: 30.h,
                                   child: Text(
                                     product['description']!,
@@ -647,7 +646,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SizedBox(height: 4.h),
-                                // Price and Discount
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -655,7 +653,7 @@ class _HomePageState extends State<HomePage> {
                                       product['price']!,
                                       style: TextStyle(
                                         fontSize: 14.sp,
-                                        color: Colors.blue,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -711,7 +709,6 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-
                           ),
                         ],
                       ),
@@ -719,7 +716,6 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              // Special Offers Container
               Container(
                 width: 343.w,
                 height: 84.h,
@@ -739,7 +735,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Row(
                   children: [
-
                     Image.asset(
                       'assets/images/Rectangle 56 (1).png',
                       width: 60.w,
@@ -747,14 +742,13 @@ class _HomePageState extends State<HomePage> {
                       fit: BoxFit.contain,
                     ),
                     SizedBox(width: 12.w),
-                    // Text content
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Special Offers 😱',
+                            'Special Offers ',
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500,
@@ -864,8 +858,8 @@ class _HomePageState extends State<HomePage> {
                           begin: Alignment.centerRight,
                           end: Alignment.centerLeft,
                           colors: [
-                            Color(0xFFEFAD18), // 25% color
-                            Color(0xFFF8D7B4), // 100% color
+                            Color(0xFFEFAD18),
+                            Color(0xFFF8D7B4),
                           ],
                           stops: [0.25, 1.0],
                         ),
@@ -955,42 +949,49 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Spacer(),
-                    Container(
-                      width: 89.w,
-                      height: 28.h,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(4.r),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.w,
-                        ),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'View All',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(width: 4.w),
-                          Icon(
-                            Icons.arrow_forward,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ProductPage()),
+                        );
+                      },
+                      child: Container(
+                        width: 89.w,
+                        height: 28.h,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(
                             color: Colors.white,
-                            size: 14.sp,
+                            width: 1.w,
                           ),
-                        ],
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'View All',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(width: 4.w),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 14.sp,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              // New Frame
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 curve: Curves.easeOut,
@@ -999,7 +1000,6 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w, bottom: 16.h),
                 child: GestureDetector(
                   onTap: () {
-                    // Navigation logic can be added here
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -1013,50 +1013,120 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    // Add your frame content here
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(3, (index) => Container(
-                        width: 142.w,
-                        height: 186.h,
-                        margin: EdgeInsets.symmetric(horizontal: 4.w),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Image at the top
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4.r),
-                                topRight: Radius.circular(4.r),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(3, (index) => Container(
+                          width: 150.w,
+                          height: 210.h,
+                          margin: EdgeInsets.symmetric(horizontal: 4.w),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.r),
+                                  topRight: Radius.circular(4.r),
+                                ),
+                                child: Image.asset(
+                                  index == 1
+                                      ? 'assets/images/cot.png'
+                                      : 'assets/images/shhhh.png',
+                                  width: 142.w,
+                                  height: 100.h,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              child: Image.asset(
-                                'assets/images/shhhh.png',
-                                width: 142.w,
-                                height: 100.h,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            // Text below the image
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  'Item ${index + 1}',
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey[600],
+                              Expanded(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        index == 1 ? 'Labbin White Sneakers' : 'IWC Schaffhausen',
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(height: 2.h),
+                                      Text(
+                                        index == 1 ? 'For Men and Female' : '2021 Pilot\'s Watch',
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                          color: Colors.grey[600],
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      if (index != 1) Text(
+                                        '44mm',
+                                        style: TextStyle(
+                                          fontSize: 10.sp,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                      SizedBox(height: 4.h),
+                                      Text(
+                                        index == 1 ? '₹650' : '₹650',
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            index == 1 ? '₹1250' : '₹1599',
+                                            style: TextStyle(
+                                              fontSize: 10.sp,
+                                              color: Colors.grey,
+                                              decoration: TextDecoration.lineThrough,
+                                            ),
+                                          ),
+                                          SizedBox(width: 4.w),
+                                          Text(
+                                            index == 1 ? '70% off' : '60% off',
+                                            style: TextStyle(
+                                              fontSize: 10.sp,
+                                              color: Colors.redAccent,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )),
+                        ),
+                      ),
                     ),
+                  ),
+                ),
+              ),
+              Container(
+                width: 343.w,
+                height: 270.h,
+                margin: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w, bottom: 20.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.r),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Group 33769.png'),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -1064,13 +1134,144 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-    );
-  }
-
+      bottomNavigationBar: Stack(
+        children: [
+          Container(
+            width: 375.w,
+            height: 76.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: Offset(0, -1),
+                  blurRadius: 1,
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.home, size: 24.sp, color: Colors.red),
+                      onPressed: () {},
+                    ),
+                    Text('Home', style: TextStyle(fontSize: 10.sp)),
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.favorite_border, size: 24.sp),
+                      onPressed: () {},
+                    ),
+                    Text('Wishlist', style: TextStyle(fontSize: 10.sp)),
+                  ],
+                ),
+                SizedBox(width: 60.w),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.search, size: 24.sp),
+                          onPressed: () {},
+                        ),
+                        Text('Search', style: TextStyle(fontSize: 10.sp)),
+                      ],
+                    ),
+                    SizedBox(width: 15.w),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.settings, size: 24.sp),
+                          onPressed: () {},
+                        ),
+                        Text('Settings', style: TextStyle(fontSize: 10.sp)),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            left: 157.5.w,
+            top: 1.h,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CartPage()),
+                );
+              },
+              child: Container(
+                width: 60.w,
+                height: 60.h,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned(
+                      top: 16.h,
+                      child: Icon(
+                        Icons.shopping_cart,
+                        size: 28.sp,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    if (itemCount > 0) // Only show the badge if there are items in the cart
+                      Positioned(
+                        top: 10.h,
+                        right: 12.w,
+                        child: Container(
+                          width: 20.w,
+                          height: 20.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            itemCount.toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );},
+          );
+        }
   @override
   void dispose() {
     _searchController.dispose();
     _searchFocusNode.dispose();
     super.dispose();
-  }
-}
+    }}

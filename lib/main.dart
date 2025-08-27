@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'cubit/add_to_cart/add_to_cart_cubit.dart';
+import 'cubit/get_product/product_cubit.dart';
 import 'splashscreen.dart';
 
 void main() {
@@ -16,14 +19,20 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'ITI App',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => ProductCubit()),
+            BlocProvider(create: (context) => AddToCartCubit()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'ITI App',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            home: const SplashScreen(),
           ),
-          home: const SplashScreen(),
         );
       },
     );
