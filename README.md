@@ -1,30 +1,25 @@
 # ITI E-Commerce App
 
-A Flutter-based e-commerce application with product listing, cart functionality, and secure payment processing.
+A modern Flutter e-commerce application with a clean and intuitive user interface.
 
-## Features
+## 🚀 Features
 
-- 🛍️ Browse products with categories
-- 🛒 Add/remove items from cart
-- 💳 Secure payment processing
-- 📱 Responsive design for all screen sizes
-- 🌐 Multi-language support (Arabic/English)
+- **Product Browsing**: View products with details
+- **Shopping Cart**: Add/remove items, update quantities
+- **Secure Checkout**: Safe payment processing
+- **Responsive Design**: Works on all devices
+- **Dark/Light Theme**: Choose your preferred theme
 
-## Screenshots
+## 📱 Screens
 
-[Add screenshots here]
+- Home Screen
+- Product Details
+- Shopping Cart
+- Checkout & Payment
 
-## Getting Started
+## 🛠️ Installation
 
-### Prerequisites
-
-- Flutter SDK (latest stable version)
-- Android Studio / Xcode (for emulator/simulator)
-- VS Code or Android Studio (with Flutter plugins)
-
-### Installation
-
-1. Clone the repository:
+1. **Clone the repository**
    ```bash
-   git clone [your-repository-url]
+   git clone [your-repo-url]
    cd iti_api
