@@ -23,25 +23,33 @@ class TextFieldWidget extends StatelessWidget {
       obscureText: obscureText,
       controller: controller,
       decoration: InputDecoration(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      filled: true,
-      fillColor: Color(0xFFF3F3F3),
-      hintText: hintText,
-      hintStyle: TextStyle(
-        color: Color(0XFF676767),
-        fontSize: 14,
-      ),
-      prefixIcon: prefixIcon,
-      suffixIcon: suffixIcon,
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.r),
-        borderSide: BorderSide(
-          color: Colors.grey.shade800,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(color: Color(0xFFA8A8A9)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(color: Color(0xFFA8A8A9)),
+        ),
+        filled: true,
+        fillColor: Color(0xFFA8A8A9).withOpacity(0.2), // Slightly transparent version of the color
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: Color(0xFF6B6B6B), // Darker gray for better contrast
+          fontSize: 14.sp,
+        ),
+        prefixIcon: prefixIcon != null 
+            ? IconTheme(
+                data: IconThemeData(color: Color(0xFF6B6B6B)),
+                child: prefixIcon!,
+              )
+            : null,
+        suffixIcon: suffixIcon,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(color: Color(0xFFA8A8A9), width: 1.5),
         ),
       ),
-    ),
     );
   }
 }

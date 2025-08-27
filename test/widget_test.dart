@@ -14,7 +14,7 @@ void main() {
   testWidgets('Splash screen shows logo', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(
-      home: SplashScreenNew(),
+      home: SplashScreen(),
     ));
 
     // Verify that the splash image is shown

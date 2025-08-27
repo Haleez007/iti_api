@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'splashscreen.dart';
 
 void main() {
@@ -18,15 +16,14 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Your App Name',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            home: const SplashScreen(),
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'ITI App',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
+          home: const SplashScreen(),
         );
       },
     );
