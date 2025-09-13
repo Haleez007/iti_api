@@ -6,6 +6,7 @@ import 'package:iti_api/core/theme/app_colors.dart';
 import 'package:iti_api/features/cart/logic/cubit/add_to_cart_cubit.dart';
 import 'package:iti_api/features/cart/logic/cubit/add_to_cart_state.dart';
 import 'package:iti_api/core/routing/routes.dart';
+import 'package:iti_api/features/payment/presentation/pages/payment_success_page.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -251,7 +252,24 @@ class _PaymentPageState extends State<PaymentPage> {
                             await Future.delayed(const Duration(seconds: 2));
                             if (!mounted) return;
                             setState(() => _processing = false);
-                            Navigator.pushReplacementNamed(context, Routes.paymentSuccess);
+                            Navigator.of(context).pushReplacement(
+                              PageRouteBuilder(
+                                transitionDuration: const Duration(milliseconds: 450),
+                                pageBuilder: (_, animation, __) => const PaymentSuccessPage(),
+                                transitionsBuilder: (_, animation, __, child) {
+                                  final curved = CurvedAnimation(parent: animation, curve: Curves.easeInOut);
+                                  final slideTween = Tween<Offset>(begin: const Offset(1.0, 0.0), end: Offset.zero)
+                                      .chain(CurveTween(curve: Curves.easeOutCubic));
+                                  return FadeTransition(
+                                    opacity: curved,
+                                    child: SlideTransition(
+                                      position: curved.drive(slideTween),
+                                      child: child,
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
                           }
                         },
                   style: ElevatedButton.styleFrom(

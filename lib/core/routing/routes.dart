@@ -29,8 +29,7 @@ class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.splash:
-        // Launch the onboarding PostPage first
-        return MaterialPageRoute(builder: (_) => const PostPage());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.post:
         return MaterialPageRoute(builder: (_) => const PostPage());
       case Routes.getStarted:
